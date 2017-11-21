@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 
 import React from 'react';
 import {
+  Image,
   StyleSheet,
   Dimensions,
   Animated,
@@ -17,6 +18,8 @@ var flattenStyle = require('react-native/Libraries/StyleSheet/flattenStyle');
 var Easing = require('react-native/Libraries/Animated/src/Easing');
 var createReactClass = require('create-react-class');
 var noop = () => {};
+
+const arrowIcon = require('./arrow.png');
 
 var { height: SCREEN_HEIGHT, width: SCREEN_WIDTH } = Dimensions.get('window');
 var DEFAULT_ARROW_SIZE = new Size(16, 8);
@@ -328,10 +331,11 @@ var Popover = createReactClass({
       top: anchorPoint.y - popoverOrigin.y - height / 2,
       width: width,
       height: height,
-      borderTopWidth: height / 2,
-      borderRightWidth: width / 2,
-      borderBottomWidth: height / 2,
-      borderLeftWidth: width / 2,
+      // borderTopWidth: height / 2,
+      // borderRightWidth: width / 2,
+      // borderBottomWidth: height / 2,
+      // borderLeftWidth: width / 2,
+      backgroundColor: 'transparent',
     };
   },
 
@@ -517,7 +521,7 @@ var Popover = createReactClass({
     var arrowStyle = [
       styles.arrow,
       arrowDynamicStyle,
-      arrowColorStyle,
+      // arrowColorStyle,
       ...extendedStyles.arrow,
     ];
     var arrowTransform = (flattenStyle(arrowStyle).transform || []).slice(0);
@@ -568,7 +572,13 @@ var Popover = createReactClass({
               </Animated.View>
             </Animated.View>
             {this.props.mode === 'popover' ? (
-              <Animated.View style={arrowStyle} />
+              <Animated.View style={arrowStyle}>
+                <Image
+                  style={styles.arrowIcon}
+                  resizeMode="stretch"
+                  source={arrowIcon}
+                />
+              </Animated.View>
             ) : null}
           </Animated.View>
         </View>
@@ -643,6 +653,10 @@ var styles = StyleSheet.create({
     borderRightColor: 'transparent',
     borderBottomColor: 'transparent',
     borderLeftColor: 'transparent',
+  },
+  arrowIcon: {
+    top: -30,
+    right: 35,
   },
 });
 
